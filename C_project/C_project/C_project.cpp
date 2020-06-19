@@ -3,7 +3,7 @@
 
 int getline(char line[], int maxline);
 int copy(char to[], char from[], int dlina);
-char reverse(char s[]);
+void reverse(char s[], char reverse[]);
 
 int main() 
 {
@@ -12,7 +12,7 @@ int main()
     int longest_text;               // Текущая длина массива longest_buffer
     char current_buffer[MAXLINE];   // Текущая введенная строка
     char longest_buffer[MAXLINE];   // Все строки, длина которых превышает 5 символов
-    char reverse_buffer[MAXLINE];
+    char reverse_buffer[MAXLINE];   // Текущая строка наоборот
     int i;
 
     i = 0;
@@ -21,26 +21,28 @@ int main()
     printf("Print you're text:\n");
     while ((current_text = getline(current_buffer, MAXLINE)) > 0) 
     {
-        if (current_text < max_symbol)
-        {
-            for (i = 0; current_buffer[i] != '\n'; ++i)
-            {
-                reverse_buffer[i] = reverse(current_buffer);
-            }
-            printf("Reverse text:\n");
-            printf("%s\n", reverse_buffer);
-        }
-        if (current_text > max_symbol) 
-        {
-            longest_text = copy(longest_buffer, current_buffer, longest_text);
-        }
-        printf("All texts more than 5 symbols:\n");
-        printf("%s\n", longest_buffer);
-        printf("Print you're text:\n");
         if (current_buffer[0] == 'e' && current_buffer[1] == 'n' && current_buffer[2] == 'd')
         {
             return 0;
         }
+        if (current_text < max_symbol)
+        {
+            reverse(current_buffer, reverse_buffer);
+            printf("\nThis text Reverse text:\n");
+            printf("%s\n", reverse_buffer);
+        }
+        else if (current_text > max_symbol) 
+        {
+            longest_text = copy(longest_buffer, current_buffer, longest_text);
+            printf("\nAll texts more than 5 symbols:\n");
+            printf("%s\n", longest_buffer);
+        }
+        if (current_buffer[0] == 'e' && current_buffer[1] == 'n' && current_buffer[2] == 'd')
+        {
+            return 0;
+        }
+        printf("Print you're text:\n");
+
     }
 }
 
@@ -107,22 +109,25 @@ int copy(char to[], char from[], int lenght)
     return i;
 }
 
-char reverse(char s[])
+void reverse(char s[], char reverse[])
 {
     int i;
     int counter;
-    char reverse[MAXLINE];
 
     counter = 0;
     for (i = 0; s[i] != '\n'; ++i)
     {
         ;
     }
+    --i;
     while (i >= 0)
     {
         reverse[counter] = s[i];
         ++counter;
         --i;
     }
+    reverse[counter] = '\n';
+    ++counter;
+    reverse[counter] = '\0';
 }
 
