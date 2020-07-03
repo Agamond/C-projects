@@ -1,47 +1,69 @@
 #include <stdio.h>
 
-void squeeze(char s1[], char s2[]);
-void getline(char line[], int maxline);
+#define MAXLINE 1000
 
-int main() {
-    char main[1000];
-    char cutout[1000];
+void escape(char s[MAXLINE], char t[MAXLINE])
+{
+	int i = 0;
+	int c = 0;
 
-    printf("print first string:\n");
-    getline(main, 1000);
-    printf("print second string:\n");
-    getline(cutout, 1000);
-    squeeze(main, cutout);
-    printf("after cutout:\n");
-    printf("%s", main);
-
-    printf("\r\nInput some text for EXIT!");
-    char a;
-    scanf("{}", a);
+	while (t[i] != '\n')
+	{
+		switch (t[i])
+		{
+		case '\n': 
+			s[c] = '\\';
+			c++;
+			s[c] = 'n';
+			c++;
+			break;
+		case '\t':
+			s[c] = '\\';
+			c++;
+			s[c] = 't';
+			c++;
+			break;
+		default:
+			s[i] = t[c];
+			i++;
+			c++;
+			break;
+		}
+	}
 }
 
-void squeeze(char main[], char cutout[]) {
-    int i, j, k;
-    k = 0;
-    for (k = 0; cutout[k] != '\0'; k++) {
-        for (i = j = 0; main[i] != '\0'; i++) {
-            if (main[i] != cutout[k]) {
-                main[j++] = main[i];
-            }
-        }
-        main[j] = '\0';
-    }
+void getline(char s[])
+{
+	int c, i;
+
+	for (i = 0; i < MAXLINE - 1 && (c = getchar()) != EOF && c != '\n'; ++i) {
+		s[i] = c;
+	}
+	if (c == '\n') {
+		s[i] = c;
+		++i;
+	}
+	s[i] = '\0';
 }
 
-void getline(char s[], int lim) {
-    int c, i;
 
-    for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i) {
-        s[i] = c;
-    }
-    if (c == '\n') {
-        s[i] = c;
-        ++i;
-    }
-    s[i] = '\0';
+int main() 
+{
+	char text[MAXLINE];
+	char changed_text[MAXLINE];
+	
+
+	while (1)
+	{
+		printf("print your text:\n");
+		getline(text);
+		if (text[0] == 'e' && text[1] == 'n' && text[2] == 'd')
+		{
+			return 0;
+		}
+		escape(changed_text, text);
+		printf("Your text has been changed:\n");				
+		printf("%s", changed_text);		
+		printf("\n");
+	}
 }
