@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+// DESIGNED BY DONBASS-WARRIOR
+
 #define MAXLINE 1000
 
 void escape(char s[MAXLINE], char t[MAXLINE]) {
