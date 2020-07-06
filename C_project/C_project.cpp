@@ -9,14 +9,14 @@ void escape(char s[MAXLINE], char t[MAXLINE]) {
     while (t[i] != '\0') {
         switch (t[i]) {
             case '\n':
-                s[c] = '1';
+                s[c] = '\\';
                 c++;
                 s[c] = 'n';
                 c++;
                 i++;
                 break;
             case '\t':
-                s[c] = '1';
+                s[c] = '\\';
                 c++;
                 s[c] = 't';
                 c++;
@@ -49,6 +49,11 @@ int main() {
     char changed_text[MAXLINE]={0,};
 
     while (1) {
+        for (int i = 0; i < 999; i++)
+        {
+            changed_text[i] = 0;
+            text[i] = 0;
+        }
         printf("print your text:\n");
         getline(text);
         if (text[0] == 'e' && text[1] == 'n' && text[2] == 'd') {
@@ -58,10 +63,11 @@ int main() {
         printf("Your text has been changed:\n");
         printf("%s", changed_text);
         printf("\n");
-        for (int i= 0; i<=sizeof(changed_text);i++)
-            changed_text[i]=0;
-        for (int i= 0; i<=sizeof(text);i++)
-            changed_text[i]=0;
+        for (int i = 0; i < 999; i++)
+        {
+            changed_text[i] = 0;
+            text[i] = 0;
+        }
     }
     return 0; 
 }
