@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <cmath>
 
 #define MAXLINE 1000
 
